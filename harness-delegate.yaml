@@ -200,7 +200,7 @@ data:
     namespace: harness-delegate-ng
     containerName: delegate
     delegateConfig:
-      accountId: zHadgwdTQqWG8CA3Jv6Feg
+      accountId: PLACEHOLDER
       managerHost: https://app.harness.io/gratis
 
 ---
