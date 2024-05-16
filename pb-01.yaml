@@ -1,0 +1,19 @@
+---
+- hosts: localhost
+  vars:
+    - user: sammy
+  tasks:
+    - name: Check if file already exists
+      command: ls /tmp/{{ user }}/myfile
+      register: file_exists
+      ignore_errors: yes
+
+    - name: create file for user
+      file:
+        path: /tmp/{{ user }}/myfile
+        state: touch
+      when: file_exists is failed
+
+    - name: show message if file exists
+      debug:
+        msg: The user file already exists
