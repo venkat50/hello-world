@@ -1,7 +1,11 @@
 ---
 - hosts: all
+  connection: local
   vars:
     - user: sammy
+  tasks:
+    - debug:
+        msg: "Running on all hosts"
   tasks:
     - name: Check if file already exists
       command: ls /tmp/{{ user }}/myfile
