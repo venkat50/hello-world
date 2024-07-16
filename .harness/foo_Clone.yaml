@@ -69,7 +69,9 @@ pipeline:
                     source:
                       type: Inline
                       spec:
-                        script: echo "Hello World"
+                        script: |-
+                          echo "Hello World"
+                          echo "Testing"
                     environmentVariables: []
                     outputVariables: []
                   timeout: 10m
