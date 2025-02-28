@@ -3,6 +3,7 @@ pipeline:
   identifier: testkustomize
   projectIdentifier: sample
   orgIdentifier: default
+  description: "Hello Test"
   tags: {}
   stages:
     - stage:
