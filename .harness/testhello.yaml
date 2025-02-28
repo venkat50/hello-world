@@ -3,7 +3,7 @@ pipeline:
   identifier: testhello
   projectIdentifier: sample
   orgIdentifier: default
-  description: Hello Testing
+  description: Hello
   tags: {}
   stages:
     - stage:
@@ -28,4 +28,30 @@ pipeline:
                     environmentVariables: []
                     outputVariables: []
                   timeout: 10m
+        tags: {}
+    - stage:
+        name: Approval
+        identifier: Approval
+        description: ""
+        type: Approval
+        spec:
+          execution:
+            steps:
+              - step:
+                  name: approve
+                  identifier: approve
+                  type: HarnessApproval
+                  timeout: 1d
+                  spec:
+                    approvalMessage: |-
+                      Please review the following information
+                      and approve the pipeline progression
+                    includePipelineExecutionHistory: true
+                    approvers:
+                      minimumCount: 1
+                      disallowPipelineExecutor: false
+                      userGroups:
+                        - account._account_all_users
+                    isAutoRejectEnabled: false
+                    approverInputs: []
         tags: {}
