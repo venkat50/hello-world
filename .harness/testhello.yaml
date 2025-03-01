@@ -3,7 +3,7 @@ pipeline:
   identifier: testhello
   projectIdentifier: sample
   orgIdentifier: default
-  description: Hello
+  description: Hello Testing
   tags: {}
   stages:
     - stage:
