@@ -1,0 +1,27 @@
+service:
+  name: cx_auth
+  identifier: cx_auth
+  orgIdentifier: Nuuly
+  projectIdentifier: CX
+  serviceDefinition:
+    type: Kubernetes
+    spec:
+      artifacts:
+        primary:
+          primaryArtifactRef: rentaldevgcr
+          sources:
+            - spec:
+                connectorRef: org.rentaldev
+                imagePath: rental-dev/cx/auth
+                tag: dev.latest
+                registryHostname: gcr.io
+              identifier: rentaldevgcr
+              type: Gcr
+      variables:
+        - name: namespace
+          type: String
+          description: ""
+          required: false
+          value: ""
+  gitOpsEnabled: true
+
