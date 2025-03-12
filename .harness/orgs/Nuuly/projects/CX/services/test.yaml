@@ -1,0 +1,14 @@
+service:
+  name: test
+  identifier: test
+  orgIdentifier: Nuuly
+  projectIdentifier: CX
+  serviceDefinition:
+    spec:
+      variables:
+        - name: namespace
+          type: String
+          description: ""
+          required: false
+          value: ""
+    type: Kubernetes
