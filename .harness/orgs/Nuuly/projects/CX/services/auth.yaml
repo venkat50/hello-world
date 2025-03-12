@@ -22,6 +22,6 @@ service:
           type: String
           description: ""
           required: false
-          value: ""
+          value: "harness-demo"
   gitOpsEnabled: true
 
