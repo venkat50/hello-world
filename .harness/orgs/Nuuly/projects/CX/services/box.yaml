@@ -20,8 +20,8 @@ service:
       variables:
         - name: namespace
           type: String
-          description: ""
+          description: "namespace"
           required: false
-          value: ""
+          value: "harness-demo"
   gitOpsEnabled: true
 
