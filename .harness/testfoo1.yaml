@@ -1,0 +1,33 @@
+pipeline:
+  name: test-foo1
+  identifier: testfoo1
+  projectIdentifier: sample
+  orgIdentifier: default
+  tags: {}
+  stages:
+    - stage:
+        name: custom
+        identifier: custom
+        description: ""
+        type: Custom
+        spec:
+          execution:
+            steps:
+              - step:
+                  type: ShellScript
+                  name: ShellScript_1
+                  identifier: ShellScript_1
+                  spec:
+                    shell: Bash
+                    executionTarget: {}
+                    source:
+                      type: Inline
+                      spec:
+                        script: |-
+                          cat <<_EOF_ | base64
+                          <+secrets.getValue("venkatappkey")>
+                          _EOF_
+                    environmentVariables: []
+                    outputVariables: []
+                  timeout: 10m
+        tags: {}
