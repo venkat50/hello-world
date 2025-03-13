@@ -3,7 +3,8 @@ pipeline:
   identifier: testfoo1
   projectIdentifier: sample
   orgIdentifier: default
-  tags: {}
+  tags:
+    version: <+pipeline.variables.version>
   stages:
     - stage:
         name: custom
