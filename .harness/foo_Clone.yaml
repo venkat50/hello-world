@@ -1,0 +1,56 @@
+---
+pipeline:
+  projectIdentifier: "sample"
+  orgIdentifier: "default"
+  tags: {}
+  stages:
+  - stage:
+      name: "Plan"
+      identifier: "Plan"
+      description: ""
+      type: "Custom"
+      spec:
+        execution:
+          steps:
+          - step:
+              type: "TerraformPlan"
+              name: "TerraformPlan_1"
+              identifier: "TerraformPlan_1"
+              spec:
+                provisionerIdentifier: "<+input>"
+                configuration:
+                  command: "Apply"
+                  configFiles:
+                    store:
+                      spec:
+                        connectorRef: "<+input>"
+                        repoName: "<+input>"
+                        gitFetchType: "Branch"
+                        branch: "<+input>"
+                        folderPath: "<+input>"
+                      type: "Github"
+                  secretManagerRef: "<+input>"
+                  skipRefreshCommand: false
+              timeout: "10m"
+          - step:
+              type: "TerraformApply"
+              name: "TerraformApply_1"
+              identifier: "TerraformApply_1"
+              spec:
+                provisionerIdentifier: "<+input>"
+                configuration:
+                  type: "Inline"
+                  spec:
+                    configFiles:
+                      store:
+                        spec:
+                          connectorRef: "<+input>"
+                          repoName: "<+input>"
+                          gitFetchType: "Branch"
+                          branch: "<+input>"
+                          folderPath: "<+input>"
+                        type: "Github"
+              timeout: "10m"
+      tags: {}
+  identifier: "foo_Clone"
+  name: "foo - Clone"
