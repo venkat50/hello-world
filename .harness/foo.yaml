@@ -1,0 +1,11 @@
+inputSet:
+  name: foo
+  identifier: foo
+  orgIdentifier: default
+  projectIdentifier: sample
+  pipeline:
+    identifier: testfoo1
+    variables:
+      - name: version
+        type: String
+        value: <+trigger.branch>
