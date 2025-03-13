@@ -32,6 +32,35 @@ pipeline:
                     outputVariables: []
                   timeout: 10m
         tags: {}
+    - stage:
+        name: test
+        identifier: test
+        description: ""
+        type: Custom
+        spec:
+          execution:
+            steps:
+              - step:
+                  type: ShellScript
+                  name: ShellScript_1
+                  identifier: ShellScript_1
+                  spec:
+                    shell: Bash
+                    executionTarget: {}
+                    source:
+                      type: Inline
+                      spec:
+                        script: echo <+stage.variables.message>
+                    environmentVariables: []
+                    outputVariables: []
+                  timeout: 10m
+        tags: {}
+        variables:
+          - name: message
+            type: String
+            description: ""
+            required: false
+            value: <+input>.executionInput()
   variables:
     - name: version
       type: String
