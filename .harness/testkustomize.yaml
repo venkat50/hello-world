@@ -46,13 +46,4 @@ pipeline:
                 - AllErrors
               action:
                 type: StageRollback
-  notificationRules:
-    - name: x
-      identifier: x
-      pipelineEvents:
-        - type: PipelineStart
-      notificationMethod:
-        type: Webhook
-        spec:
-          webhookUrl: https://webhook.site/c08e81ae-0137-4252-b0b9-dbeaaf06c226
-      enabled: true
+  notificationRules: []
