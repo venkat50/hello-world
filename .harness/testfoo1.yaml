@@ -67,3 +67,20 @@ pipeline:
       description: ""
       required: true
       value: <+input>
+    - name: webhook
+      type: String
+      description: ""
+      required: false
+      value: 7a01c594-a859-4a21-936c-3fcff6e00742
+  notificationRules:
+    - name: x
+      identifier: x
+      pipelineEvents:
+        - type: PipelineStart
+      notificationMethod:
+        type: Webhook
+        spec:
+          webhookUrl: https://webhook.site/<+pipeline.variables.webhook>
+          headers:
+            x-version: <+pipeline.variables.version
+      enabled: true
