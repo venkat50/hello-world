@@ -15,22 +15,17 @@ pipeline:
           execution:
             steps:
               - step:
-                  type: ShellScript
-                  name: ShellScript_1
-                  identifier: ShellScript_1
+                  type: Http
+                  name: Http_1
+                  identifier: Http_1
                   spec:
-                    shell: Bash
-                    executionTarget: {}
-                    source:
-                      type: Inline
-                      spec:
-                        script: |-
-                          cat <<_EOF_ | base64
-                          <+secrets.getValue("venkatappkey")>
-                          _EOF_
-                    environmentVariables: []
+                    url: https://webhook.site/<+pipeline.variables.webhook>
+                    method: POST
+                    headers: []
+                    inputVariables: []
                     outputVariables: []
-                  timeout: 10m
+                    requestBody: Hello
+                  timeout: 10s
         tags: {}
     - stage:
         name: test
