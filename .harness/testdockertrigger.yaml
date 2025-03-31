@@ -38,6 +38,8 @@ pipeline:
 
                       # Create a new stage based on "base"
                       FROM base AS build
+                      ARG NAME
+                      ARG DIR
                       # The NAME build argument is available here
                       # since it's declared in a parent stage
                       WORKDIR /$DIR
