@@ -85,6 +85,29 @@ pipeline:
         strategy:
           repeat:
             items: <+input>
+    - stage:
+        name: custom
+        identifier: custom
+        description: ""
+        type: Custom
+        spec:
+          execution:
+            steps:
+              - step:
+                  type: ShellScript
+                  name: display sha
+                  identifier: display_sha
+                  spec:
+                    shell: Bash
+                    executionTarget: {}
+                    source:
+                      type: Inline
+                      spec:
+                        script: echo
+                    environmentVariables: []
+                    outputVariables: []
+                  timeout: 10m
+        tags: {}
   allowStageExecutions: true
   identifier: testdockertrigger
   name: test-docker-trigger
