@@ -58,7 +58,7 @@ pipeline:
                     imageName: venkat/sample
                     tags:
                       - <+<+repeat.item>.split(",")[0]>.<+pipeline.sequenceId>
-                    caching: true
+                    caching: false
                     buildArgs:
                       NAME: <+<+repeat.item>.split(",")[0]>
                       DIR: <+<+repeat.item>.split(",")[1]>
