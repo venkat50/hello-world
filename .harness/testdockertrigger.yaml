@@ -108,6 +108,9 @@ pipeline:
                     outputVariables: []
                   timeout: 10m
         tags: {}
+        strategy:
+          repeat:
+            items: <+input>
   allowStageExecutions: true
   identifier: testdockertrigger
   name: test-docker-trigger
