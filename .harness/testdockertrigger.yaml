@@ -30,15 +30,20 @@ pipeline:
                     shell: Sh
                     command: |-
                       cat > Dockerfile <<_EOF_
-                      FROM alpine
-                      ENV APP_DIR=/xyz
-                      WORKDIR /src
-                      RUN mkdir -p venkat
-                      RUN pwd
-                      _EOF_
+                      # syntax=docker/dockerfile:1
+                      FROM alpine AS base
+                      # Declare the build argument in the build stage
+                      ARG NAME="joe"
+                      ARG DIR="src"
 
-                      pwd
-                      ls
+                      # Create a new stage based on "base"
+                      FROM base AS build
+                      # The NAME build argument is available here
+                      # since it's declared in a parent stage
+                      WORKDIR /$DIR
+                      RUN echo "hello $NAME!"
+                      RUN mkdir -p $NAME
+                      _EOF_
                     resources:
                       limits:
                         memory: 50Mi
@@ -54,6 +59,9 @@ pipeline:
                     imageName: venkat/sample
                     tags:
                       - <+pipeline.sequenceId>
+                    buildArgs:
+                      NAME: venkat
+                      DIR: app
           caching:
             enabled: false
             paths: []
