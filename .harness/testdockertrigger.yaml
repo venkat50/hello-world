@@ -69,10 +69,7 @@ pipeline:
           pipelineStatus: Success
         strategy:
           repeat:
-            items:
-              - venkat1, app1
-              - venkat2, app2
-              - venkat3, app3
+            items: <+input>
   allowStageExecutions: true
   identifier: testdockertrigger
   name: test-docker-trigger
