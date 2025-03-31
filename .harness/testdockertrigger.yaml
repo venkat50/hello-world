@@ -62,6 +62,17 @@ pipeline:
                     buildArgs:
                       NAME: <+<+repeat.item>.split(",")[0]>
                       DIR: <+<+repeat.item>.split(",")[1]>
+              - step:
+                  type: Run
+                  name: Run_2
+                  identifier: Run_2
+                  spec:
+                    connectorRef: harnessDockerHub
+                    image: alpine
+                    shell: Sh
+                    command: |-
+                      echo "
+                      SHA <+execution.steps.BuildAndPushGAR_1.artifact_BuildAndPushGAR_1.stepArtifacts.publishedImageArtifacts[0].digest>"
           caching:
             enabled: false
             paths: []
