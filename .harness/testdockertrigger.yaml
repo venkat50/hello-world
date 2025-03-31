@@ -77,6 +77,12 @@ pipeline:
             description: ""
             required: false
             value: <+input>
+        strategy:
+          repeat:
+            items:
+              - a
+              - b
+              - c
   allowStageExecutions: true
   identifier: testdockertrigger
   name: test-docker-trigger
