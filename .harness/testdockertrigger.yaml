@@ -71,7 +71,7 @@ pipeline:
                     image: alpine
                     shell: Sh
                     command: |-
-                      echo 
+                      echo "
                       SHA <+execution.steps.BuildAndPushGAR_1.artifact_BuildAndPushGAR_1.stepArtifacts.publishedImageArtifacts[0].digest>"
           caching:
             enabled: false
