@@ -29,7 +29,7 @@ pipeline:
                     image: alpine
                     shell: Sh
                     command: |-
-                      cat > Dockerfile <<_EOF_
+                      cat > Dockerfile <<'_EOF_'
                       # syntax=docker/dockerfile:1
                       FROM alpine AS base
                       # Declare the build argument in the build stage
@@ -38,8 +38,6 @@ pipeline:
 
                       # Create a new stage based on "base"
                       FROM base AS build
-                      ARG NAME
-                      ARG DIR
                       # The NAME build argument is available here
                       # since it's declared in a parent stage
                       WORKDIR /$DIR
