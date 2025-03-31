@@ -59,13 +59,24 @@ pipeline:
                     tags:
                       - <+pipeline.sequenceId>
                     buildArgs:
-                      NAME: venkat
-                      DIR: app
+                      NAME: <+stage.variables.name>
+                      DIR: <+stage.variables.dir>
           caching:
             enabled: false
             paths: []
         when:
           pipelineStatus: Success
+        variables:
+          - name: name
+            type: String
+            description: ""
+            required: false
+            value: <+input>
+          - name: dir
+            type: String
+            description: ""
+            required: false
+            value: <+input>
   allowStageExecutions: true
   identifier: testdockertrigger
   name: test-docker-trigger
