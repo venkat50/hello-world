@@ -49,7 +49,7 @@ pipeline:
                         cpu: 100m
               - step:
                   type: BuildAndPushGAR
-                  name: BuildAndPushGAR_1
+                  name: BuildAndPushGAR
                   identifier: BuildAndPushGAR_1
                   spec:
                     connectorRef: gcpsales
