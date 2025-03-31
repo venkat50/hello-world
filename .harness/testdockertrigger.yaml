@@ -103,7 +103,7 @@ pipeline:
                     source:
                       type: Inline
                       spec:
-                        script: echo <+pipeline.stages.build_0.spec.execution.steps.BuildAndPushGAR_1.artifact_BuildAndPushGAR_1.stepArtifacts.publishedImageArtifacts[0].digest>
+                        script: echo <+pipeline.stages.build_<+strategy.iteration>.spec.execution.steps.BuildAndPushGAR_1.artifact_BuildAndPushGAR_1.stepArtifacts.publishedImageArtifacts[0].digest>
                     environmentVariables: []
                     outputVariables: []
                   timeout: 10m
