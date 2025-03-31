@@ -42,7 +42,6 @@ pipeline:
                       # since it's declared in a parent stage
                       WORKDIR /$DIR
                       RUN echo "hello $NAME!"
-                      RUN mkdir -p $NAME
                       _EOF_
                     resources:
                       limits:
