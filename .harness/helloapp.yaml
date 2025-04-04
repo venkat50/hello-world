@@ -1,0 +1,9 @@
+service:
+  name: hello-app
+  identifier: helloapp
+  orgIdentifier: default
+  projectIdentifier: sample
+  gitOpsEnabled: true
+  serviceDefinition:
+    spec: {}
+    type: Kubernetes
