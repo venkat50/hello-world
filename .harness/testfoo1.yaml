@@ -79,4 +79,4 @@ pipeline:
           headers:
             x-version: <+pipeline.variables.version
       enabled: true
-  description: Test
+  description: Test changes from Git
