@@ -79,3 +79,4 @@ pipeline:
           headers:
             x-version: <+pipeline.variables.version
       enabled: true
+  description: Test
