@@ -13,6 +13,10 @@ resource "google_compute_instance" "default" {
     user                  = "venkat"
   }
 
+service_account {
+    email  = "980596850008-compute@developer.gserviceaccount.com"
+}
+
   network_interface {
     network = "harness-se-network"
     access_config {
