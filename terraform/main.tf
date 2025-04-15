@@ -5,7 +5,7 @@ resource "google_compute_instance" "default" {
 
   boot_disk {
     initialize_params {
-      image = "ubuntu-minimal-2210-kinetic-amd64-v20230126"
+      image = "projects/debian-cloud/global/images/debian-12-bookworm-v20250311"
     }
   }
 
