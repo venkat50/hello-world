@@ -1,6 +1,6 @@
 resource "google_compute_instance" "default" {
   name         = "venkat-test-terraform"
-  machine_type = "n1-standard-1"
+  machine_type = "e2-medium"
   zone         = "us-east1-b"
 
   boot_disk {
