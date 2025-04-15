@@ -14,7 +14,7 @@ resource "google_compute_instance" "default" {
   }
 
   network_interface {
-    network = "default"
+    network = "harness-se-network"
     access_config {
       network_tier = "PREMIUM"
     }
