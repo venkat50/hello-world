@@ -9,8 +9,17 @@ resource "google_compute_instance" "default" {
     }
   }
 
+   labels = {
+    user                  = "venkat"
+  }
+
   network_interface {
     network = "default"
-    access_config {}
+    access_config {
+      network_tier = "PREMIUM"
+    }
+    queue_count = 0
+    stack_type  = "IPV4_ONLY"
+    subnetwork  = "projects/sales-209522/regions/us-east1/subnetworks/harness-se-network"
   }
 }
