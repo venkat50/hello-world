@@ -1,0 +1,116 @@
+pipeline:
+  projectIdentifier: sample
+  orgIdentifier: default
+  tags: {}
+  stages:
+    - stage:
+        name: build
+        identifier: build
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: false
+          infrastructure:
+            type: KubernetesDirect
+            spec:
+              connectorRef: k3ssa
+              namespace: harness-build
+              automountServiceAccountToken: true
+              nodeSelector: {}
+              os: Linux
+          execution:
+            steps:
+              - step:
+                  type: Run
+                  name: Run_1
+                  identifier: Run_1
+                  spec:
+                    connectorRef: harnessDockerHub
+                    image: alpine
+                    shell: Sh
+                    command: |-
+                      cat > Dockerfile <<'_EOF_'
+                      # syntax=docker/dockerfile:1
+                      FROM alpine AS base
+                      # Declare the build argument in the build stage
+                      ARG NAME="joe"
+                      ARG DIR="src"
+
+                      # Create a new stage based on "base"
+                      FROM base AS build
+                      # The NAME build argument is available here
+                      # since it's declared in a parent stage
+                      WORKDIR /$DIR
+                      RUN echo "hello $NAME!"
+                      _EOF_
+                    resources:
+                      limits:
+                        memory: 50Mi
+                        cpu: 100m
+              - step:
+                  type: BuildAndPushGAR
+                  name: BuildAndPushGAR
+                  identifier: BuildAndPushGAR_1
+                  spec:
+                    connectorRef: gcpsales
+                    host: us-east1-docker.pkg.dev
+                    projectID: sales-209522
+                    imageName: venkat/sample
+                    tags:
+                      - <+<+repeat.item>.split(",")[0]>.<+pipeline.sequenceId>
+                    caching: false
+                    buildArgs:
+                      NAME: <+<+repeat.item>.split(",")[0]>
+                      DIR: <+<+repeat.item>.split(",")[1]>
+              - step:
+                  type: Run
+                  name: Run_2
+                  identifier: Run_2
+                  spec:
+                    connectorRef: harnessDockerHub
+                    image: alpine
+                    shell: Sh
+                    command: |-
+                      echo "
+                      SHA <+execution.steps.BuildAndPushGAR_1.artifact_BuildAndPushGAR_1.stepArtifacts.publishedImageArtifacts[0].digest>"
+          caching:
+            enabled: false
+            paths: []
+          sharedPaths:
+            - /workspace
+          buildIntelligence:
+            enabled: false
+        when:
+          pipelineStatus: Success
+        strategy:
+          repeat:
+            items: <+input>
+    - stage:
+        name: custom
+        identifier: custom
+        description: ""
+        type: Custom
+        spec:
+          execution:
+            steps:
+              - step:
+                  type: ShellScript
+                  name: display sha
+                  identifier: display_sha
+                  spec:
+                    shell: Bash
+                    executionTarget: {}
+                    source:
+                      type: Inline
+                      spec:
+                        script: echo <+pipeline.stages.build_<+strategy.iteration>.spec.execution.steps.BuildAndPushGAR_1.artifact_BuildAndPushGAR_1.stepArtifacts.publishedImageArtifacts[0].digest>
+                    environmentVariables: []
+                    outputVariables: []
+                  timeout: 10m
+        tags: {}
+        strategy:
+          repeat:
+            items: <+input>
+  allowStageExecutions: true
+  identifier: testdockertrigger
+  name: test-docker-trigger

@@ -1,0 +1,17 @@
+inputSet:
+  pipeline:
+    identifier: testdockertrigger
+    stages:
+      - stage:
+          identifier: build
+          type: CI
+          strategy:
+            repeat:
+              items:
+                - venkat1, app1
+                - venkat2, app2
+                - venkat3, app3
+  name: input1
+  identifier: input1
+  orgIdentifier: default
+  projectIdentifier: sample

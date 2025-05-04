@@ -1,0 +1,82 @@
+pipeline:
+  name: test-foo1
+  identifier: testfoo1
+  projectIdentifier: sample
+  orgIdentifier: default
+  tags:
+    version: <+pipeline.variables.version>
+  stages:
+    - stage:
+        name: custom
+        identifier: custom
+        description: ""
+        type: Custom
+        spec:
+          execution:
+            steps:
+              - step:
+                  type: Http
+                  name: Http_1
+                  identifier: Http_1
+                  spec:
+                    url: https://webhook.site/<+pipeline.variables.webhook>
+                    method: POST
+                    headers: []
+                    inputVariables: []
+                    outputVariables: []
+                    requestBody: Hello
+                  timeout: 10s
+        tags: {}
+    - stage:
+        name: test
+        identifier: test
+        description: ""
+        type: Custom
+        spec:
+          execution:
+            steps:
+              - step:
+                  type: ShellScript
+                  name: ShellScript_1
+                  identifier: ShellScript_1
+                  spec:
+                    shell: Bash
+                    executionTarget: {}
+                    source:
+                      type: Inline
+                      spec:
+                        script: echo <+stage.variables.message>
+                    environmentVariables: []
+                    outputVariables: []
+                  timeout: 10m
+        tags: {}
+        variables:
+          - name: message
+            type: String
+            description: ""
+            required: false
+            value: <+input>.executionInput()
+  variables:
+    - name: version
+      type: String
+      description: ""
+      required: true
+      value: <+input>
+    - name: webhook
+      type: String
+      description: ""
+      required: false
+      value: 7a01c594-a859-4a21-936c-3fcff6e00742
+  notificationRules:
+    - name: x
+      identifier: x
+      pipelineEvents:
+        - type: PipelineStart
+      notificationMethod:
+        type: Webhook
+        spec:
+          webhookUrl: https://webhook.site/<+pipeline.variables.webhook>
+          headers:
+            x-version: <+pipeline.variables.version
+      enabled: true
+  description: Test changes from Git - Check
