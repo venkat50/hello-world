@@ -1,0 +1,113 @@
+pipeline:
+  name: test-artifact
+  identifier: testartifact
+  projectIdentifier: sample
+  orgIdentifier: default
+  tags: {}
+  stages:
+    - stage:
+        name: dev
+        identifier: dev
+        description: ""
+        type: Deployment
+        spec:
+          deploymentType: Kubernetes
+          service:
+            serviceRef: helloworldshubh
+            serviceInputs:
+              serviceDefinition:
+                type: Kubernetes
+                spec:
+                  artifacts:
+                    primary:
+                      sources:
+                        - identifier: harbor_new
+                          type: DockerRegistry
+                          spec:
+                            tag: <+input>
+          environment:
+            environmentRef: dev
+            deployToAll: false
+            infrastructureDefinitions:
+              - identifier: k3ssa
+          execution:
+            steps:
+              - step:
+                  type: ShellScript
+                  name: print artifact
+                  identifier: print_artifact
+                  spec:
+                    shell: Bash
+                    executionTarget: {}
+                    source:
+                      type: Inline
+                      spec:
+                        script: |-
+                          echo <+artifacts.primary.image>
+                          echo <+artifacts.primary.imagePath>
+                          echo <+artifacts.primary.tag>
+                          echo <+artifacts.primary.type>
+                    environmentVariables: []
+                    outputVariables: []
+                  timeout: 10m
+            rollbackSteps: []
+        tags: {}
+        failureStrategies:
+          - onFailure:
+              errors:
+                - AllErrors
+              action:
+                type: StageRollback
+    - stage:
+        name: prod
+        identifier: prod
+        description: ""
+        type: Deployment
+        spec:
+          deploymentType: Kubernetes
+          service:
+            serviceRef: helloworldshubh
+            serviceInputs:
+              serviceDefinition:
+                type: Kubernetes
+                spec:
+                  artifacts:
+                    primary:
+                      sources:
+                        - identifier: harbor_new
+                          type: DockerRegistry
+                          spec:
+                            tag: <+input>
+          environment:
+            environmentRef: prod
+            deployToAll: false
+            infrastructureDefinitions:
+              - identifier: prodinfra
+          execution:
+            steps:
+              - step:
+                  type: ShellScript
+                  name: print prod artifact
+                  identifier: print_prod_artifact
+                  spec:
+                    shell: Bash
+                    executionTarget: {}
+                    source:
+                      type: Inline
+                      spec:
+                        script: |-
+                          echo <+artifacts.primary.image>
+                          echo <+artifacts.primary.imagePath>
+                          echo <+artifacts.primary.tag>
+                          echo <+artifacts.primary.type>
+                    environmentVariables: []
+                    outputVariables: []
+                  timeout: 10m
+            rollbackSteps: []
+        tags: {}
+        failureStrategies:
+          - onFailure:
+              errors:
+                - AllErrors
+              action:
+                type: StageRollback
