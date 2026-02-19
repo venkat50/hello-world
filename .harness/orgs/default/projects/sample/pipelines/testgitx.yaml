@@ -23,7 +23,7 @@ pipeline:
                     source:
                       type: Inline
                       spec:
-                        script: echo Hello World from git
+                        script: echo Hello World from harness
                     environmentVariables: []
                     outputVariables: []
                   timeout: 10m
